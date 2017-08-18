@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FreneticGameCore;
+using FreneticGameGraphics;
+using FreneticGameGraphics.ClientSystem;
+using FreneticGameGraphics.ClientSystem.EntitySystem;
+using OpenTK;
+using FreneticGameGraphics.LightingSystem;
 
 namespace Test3DGame.MainGame
 {
@@ -12,11 +18,34 @@ namespace Test3DGame.MainGame
     public class Game
     {
         /// <summary>
+        /// The primary backing game engine.
+        /// </summary>
+        public GameEngine3D Engine;
+
+        /// <summary>
         /// Starts the game.
         /// </summary>
         public void Start()
         {
+            Engine = new GameEngine3D();
+            Engine.OnWindowLoad += Engine_WindowLoad;
+            Engine.Start();
+        }
 
+        /// <summary>
+        /// Called by the engine when it loads up.
+        /// </summary>
+        public void Engine_WindowLoad()
+        {
+            Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
+            {
+                EntityModel = Engine.Models.Cube,
+                Scale = new Location(1, 10, 10),
+                RenderAt = new Vector3(10, 0, 0),
+                DiffuseTexture = Engine.Textures.White
+            });
+            PointLight pl = new PointLight(new Location(7, 0, 3), 6f, Location.One);
+            Engine.MainView.Lights.Add(pl);
         }
     }
 }
