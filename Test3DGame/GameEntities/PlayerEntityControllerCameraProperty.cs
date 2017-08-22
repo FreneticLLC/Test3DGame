@@ -84,7 +84,7 @@ namespace Test3DGame.GameEntities
             }
             else if (e.Button == MouseButton.Right)
             {
-                Engine.SpawnEntity(new EntityPointLight3DProperty()
+                BasicEntity be = Engine.SpawnEntity(new EntityPointLight3DProperty()
                 {
                     LightColor = new Location(1, 0.2, 0.1),
                     LightPosition = EyePos,
@@ -96,6 +96,7 @@ namespace Test3DGame.GameEntities
                     Shape = new EntitySphereShape() { Size = 0.5 },
                     Mass = 0.5
                 });
+                be.GetProperty<EntityPointLight3DProperty>().InternalLight.SetCastShadows(false);
             }
         }
 
