@@ -48,7 +48,7 @@ namespace Test3DGame.MainGame
             {
                 EntityModel = Engine.Models.Cube,
                 Scale = new Location(1, 10, 10),
-                RenderAt = new Vector3(10, 0, 0),
+                RenderAt = new Location(10, 0, 0),
                 DiffuseTexture = Engine.Textures.White
             });
             PointLight pl = new PointLight(new Location(7, 0, 3), 15f, Location.One);
