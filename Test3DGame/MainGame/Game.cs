@@ -51,7 +51,14 @@ namespace Test3DGame.MainGame
                 RenderAt = new Location(10, 0, 0),
                 DiffuseTexture = Engine.Textures.White
             });
-            PointLight pl = new PointLight(new Location(7, 0, 3), 15f, Location.One);
+            Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
+            {
+                EntityModel = Engine.Models.Cube,
+                Scale = new Location(1, 1, 1),
+                RenderAt = new Location(7, 0, 3),
+                DiffuseTexture = Engine.Textures.White
+            });
+            PointLight pl = new PointLight(new Location(5, 0, 3), 15f, Location.One);
             Engine.MainView.Lights.Add(pl);
         }
 
