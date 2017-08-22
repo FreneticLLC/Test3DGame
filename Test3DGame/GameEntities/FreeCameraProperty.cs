@@ -14,7 +14,7 @@ namespace Test3DGame.GameEntities
     /// <summary>
     /// A simple free-motion camera.
     /// </summary>
-    public class FreeCamera : ClientEntityProperty
+    public class FreeCameraProperty : ClientEntityProperty
     {
         /// <summary>
         /// Fired when entity is spawned.

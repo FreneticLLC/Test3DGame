@@ -56,8 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameEntities\FreeCamera.cs" />
-    <Compile Include="MainGame\Game.cs" />
+    <Compile Include="GameEntities\FreeCameraProperty.cs" />
+    <Compile Include="GameEntities\PlayerEntityControllerCameraProperty.cs" />
+    <Compile Include="GameEntities\MainGame\Game.cs" />
     <Compile Include="T3DProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

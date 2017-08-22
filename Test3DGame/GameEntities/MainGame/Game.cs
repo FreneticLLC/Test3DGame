@@ -11,6 +11,8 @@ using OpenTK;
 using FreneticGameGraphics.LightingSystem;
 using OpenTK.Input;
 using Test3DGame.GameEntities;
+using FreneticGameCore.EntitySystem;
+using FreneticGameCore.EntitySystem.PhysicsHelpers;
 
 namespace Test3DGame.MainGame
 {
@@ -33,6 +35,7 @@ namespace Test3DGame.MainGame
             {
                 Forward_Shadows = true
             };
+            Engine.MainView.ShadowTexSize = () => 512;
             Engine.OnWindowLoad += Engine_WindowLoad;
             Engine.Start();
         }
@@ -43,22 +46,27 @@ namespace Test3DGame.MainGame
         public void Engine_WindowLoad()
         {
             Engine.Window.KeyDown += Window_KeyDown;
-            Engine.SpawnEntity(new FreeCamera());
+            // Ground
             Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
             {
                 EntityModel = Engine.Models.Cube,
-                Scale = new Location(1, 10, 10),
-                RenderAt = new Location(10, 0, 0),
+                Scale = new Location(100, 100, 10),
+                RenderAt = new Location(0, 0, -5),
                 DiffuseTexture = Engine.Textures.White
-            });
-            Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
+            }, new EntityPhysicsProperty()
             {
-                EntityModel = Engine.Models.Cube,
-                Scale = new Location(1, 1, 1),
-                RenderAt = new Location(7, 0, 3),
-                DiffuseTexture = Engine.Textures.White
+                Position = new Location(0, 0, -5),
+                Shape = new EntityBoxShape() { Size = new Location(100, 100, 10) },
+                Mass = 0
             });
-            PointLight pl = new PointLight(new Location(5, 0, 3), 15f, Location.One);
+            // Player
+            Engine.SpawnEntity(new EntityPhysicsProperty()
+            {
+                Position = new Location(0, 0, 2),
+                Shape = new EntityCharacterShape()
+            }, new PlayerEntityControllerCameraProperty());
+            // Light source
+            PointLight pl = new PointLight(new Location(0, 0, 20), 100f, Location.One);
             Engine.MainView.Lights.Add(pl);
         }
 
