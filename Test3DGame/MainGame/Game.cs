@@ -9,6 +9,8 @@ using FreneticGameGraphics.ClientSystem;
 using FreneticGameGraphics.ClientSystem.EntitySystem;
 using OpenTK;
 using FreneticGameGraphics.LightingSystem;
+using OpenTK.Input;
+using Test3DGame.GameEntities;
 
 namespace Test3DGame.MainGame
 {
@@ -27,7 +29,10 @@ namespace Test3DGame.MainGame
         /// </summary>
         public void Start()
         {
-            Engine = new GameEngine3D();
+            Engine = new GameEngine3D()
+            {
+                Forward_Shadows = true
+            };
             Engine.OnWindowLoad += Engine_WindowLoad;
             Engine.Start();
         }
@@ -37,6 +42,8 @@ namespace Test3DGame.MainGame
         /// </summary>
         public void Engine_WindowLoad()
         {
+            Engine.Window.KeyDown += Window_KeyDown;
+            Engine.SpawnEntity(new FreeCamera());
             Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
             {
                 EntityModel = Engine.Models.Cube,
@@ -44,8 +51,21 @@ namespace Test3DGame.MainGame
                 RenderAt = new Vector3(10, 0, 0),
                 DiffuseTexture = Engine.Textures.White
             });
-            PointLight pl = new PointLight(new Location(7, 0, 3), 6f, Location.One);
+            PointLight pl = new PointLight(new Location(7, 0, 3), 15f, Location.One);
             Engine.MainView.Lights.Add(pl);
+        }
+
+        /// <summary>
+        /// Handles escape key pressing to exit.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">Event data.</param>
+        private void Window_KeyDown(object sender, KeyboardKeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Engine.Window.Close();
+            }
         }
     }
 }
