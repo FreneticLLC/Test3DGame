@@ -66,7 +66,7 @@ namespace Test3DGame.MainGame
                 Shape = new EntityCharacterShape()
             }, new PlayerEntityControllerCameraProperty());
             // Sky light
-            Engine.SpawnEntity(new EntitySkytLight3DProperty());
+            Engine.SpawnEntity(new EntitySkyLight3DProperty());
             // Center light
             Engine.SpawnEntity(new EntityPointLight3DProperty()
             {
