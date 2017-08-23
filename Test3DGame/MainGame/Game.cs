@@ -35,7 +35,7 @@ namespace Test3DGame.MainGame
             {
                 Forward_Shadows = true
             };
-            Engine.MainView.ShadowTexSize = () => 512;
+            Engine.MainView.ShadowTexSize = () => 1024;
             Engine.OnWindowLoad += Engine_WindowLoad;
             Engine.Start();
         }
