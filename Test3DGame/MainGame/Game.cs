@@ -65,9 +65,14 @@ namespace Test3DGame.MainGame
                 Position = new Location(0, 0, 2),
                 Shape = new EntityCharacterShape()
             }, new PlayerEntityControllerCameraProperty());
-            // Light source
-            PointLight pl = new PointLight(new Location(0, 0, 20), 100f, Location.One);
-            Engine.MainView.Lights.Add(pl);
+            // Sky light
+            Engine.SpawnEntity(new EntitySkytLight3DProperty());
+            // Center light
+            Engine.SpawnEntity(new EntityPointLight3DProperty()
+            {
+                LightPosition = new Location(0, 0, 10),
+                LightStrength = 25f
+            });
         }
 
         /// <summary>
