@@ -13,6 +13,7 @@ using OpenTK.Input;
 using Test3DGame.GameEntities;
 using FreneticGameCore.EntitySystem;
 using FreneticGameCore.EntitySystem.PhysicsHelpers;
+using FreneticGameGraphics.UISystem;
 
 namespace Test3DGame.MainGame
 {
@@ -73,6 +74,7 @@ namespace Test3DGame.MainGame
                 LightPosition = new Location(0, 0, 10),
                 LightStrength = 25f
             });
+            //Engine.MainUI.Elements.Add(new UIRectangle() { Min = new Vector2(0, 0), Max = new Vector2(100, 100) });
         }
 
         /// <summary>

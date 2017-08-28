@@ -97,6 +97,7 @@ namespace Test3DGame.GameEntities
                     Mass = 0.5
                 });
                 be.GetProperty<EntityPointLight3DProperty>().InternalLight.SetCastShadows(false);
+                Engine.Sounds.Play(Engine.Sounds.GetSound("sfx/test"), false, Entity.LastKnownPosition);
             }
         }
 
