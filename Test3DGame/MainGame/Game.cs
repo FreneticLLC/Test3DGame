@@ -74,7 +74,7 @@ namespace Test3DGame.MainGame
                 LightPosition = new Location(0, 0, 10),
                 LightStrength = 25f
             });
-            //Engine.MainUI.Elements.Add(new UIRectangle() { Min = new Vector2(0, 0), Max = new Vector2(100, 100) });
+            //Engine.MainUI.DefaultScreen.AddChild(new UIButton("white", "^1WOW!", Engine.FontSets.SlightlyBigger, () => SysConsole.Output(OutputType.CLIENTINFO, "Hi!"), UIAnchor.TOP_CENTER, () => 350, () => 70, () => 0, () => 0));
         }
 
         /// <summary>
