@@ -72,8 +72,7 @@ namespace Test3DGame.MainGame
                 LightPosition = new Location(0, 0, 10),
                 LightStrength = 25f
             });
-            //Engine.MainUI.DefaultScreen.AddChild(new UIButton("white", "^1WOW!", Engine.FontSets.SlightlyBigger, () => SysConsole.Output(OutputType.CLIENTINFO, "Hi!"), UIAnchor.TOP_CENTER, () => 350, () => 70, () => 0, () => 0));
-            UI3DSubEngine subeng = new UI3DSubEngine(UIAnchor.CENTER, () => 350, () => 350, () => 0, () => 0);
+            UI3DSubEngine subeng = new UI3DSubEngine(new UIPositionHelper(Client.MainUI).Anchor(UIAnchor.CENTER).ConstantXY(0, 0).ConstantWidthHeight(350, 350));
             Client.MainUI.DefaultScreen.AddChild(subeng);
             // Ground
             subeng.SubEngine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
