@@ -23,22 +23,20 @@ namespace Test3DGame.MainGame
     public class Game
     {
         /// <summary>
-        /// The primary backing game engine.
+        /// The primary backing game client.
         /// </summary>
-        public GameEngine3D Engine;
+        public GameClientWindow Client;
 
         /// <summary>
         /// Starts the game.
         /// </summary>
         public void Start()
         {
-            Engine = new GameEngine3D()
-            {
-                Forward_Shadows = true
-            };
-            Engine.MainView.ShadowTexSize = () => 1024;
-            Engine.OnWindowLoad += Engine_WindowLoad;
-            Engine.Start();
+            Client = new GameClientWindow(threed: true);
+            Client.Engine3D.Forward_Shadows = true;
+            Client.Engine3D.MainView.ShadowTexSize = () => 1024;
+            Client.OnWindowLoad += Engine_WindowLoad;
+            Client.Start();
         }
 
         /// <summary>
@@ -46,14 +44,14 @@ namespace Test3DGame.MainGame
         /// </summary>
         public void Engine_WindowLoad()
         {
-            Engine.Window.KeyDown += Window_KeyDown;
+            Client.Window.KeyDown += Window_KeyDown;
             // Ground
-            Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
+            Client.Engine3D.SpawnEntity(new EntitySimple3DRenderableModelProperty()
             {
-                EntityModel = Engine.Models.Cube,
+                EntityModel = Client.Models.Cube,
                 Scale = new Location(100, 100, 10),
                 RenderAt = new Location(0, 0, -5),
-                DiffuseTexture = Engine.Textures.White
+                DiffuseTexture = Client.Textures.White
             }, new EntityPhysicsProperty()
             {
                 Position = new Location(0, 0, -5),
@@ -61,20 +59,38 @@ namespace Test3DGame.MainGame
                 Mass = 0
             });
             // Player
-            Engine.SpawnEntity(new EntityPhysicsProperty()
+            Client.Engine3D.SpawnEntity(new EntityPhysicsProperty()
             {
                 Position = new Location(0, 0, 2),
                 Shape = new EntityCharacterShape()
             }, new PlayerEntityControllerCameraProperty());
             // Sky light
-            Engine.SpawnEntity(new EntitySkyLight3DProperty());
+            Client.Engine3D.SpawnEntity(new EntitySkyLight3DProperty());
             // Center light
-            Engine.SpawnEntity(new EntityPointLight3DProperty()
+            Client.Engine3D.SpawnEntity(new EntityPointLight3DProperty()
             {
                 LightPosition = new Location(0, 0, 10),
                 LightStrength = 25f
             });
             //Engine.MainUI.DefaultScreen.AddChild(new UIButton("white", "^1WOW!", Engine.FontSets.SlightlyBigger, () => SysConsole.Output(OutputType.CLIENTINFO, "Hi!"), UIAnchor.TOP_CENTER, () => 350, () => 70, () => 0, () => 0));
+            UI3DSubEngine subeng = new UI3DSubEngine(UIAnchor.CENTER, () => 350, () => 350, () => 0, () => 0);
+            Client.MainUI.DefaultScreen.AddChild(subeng);
+            // Ground
+            subeng.SubEngine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
+            {
+                EntityModel = Client.Models.Cube,
+                Scale = new Location(10, 10, 10),
+                RenderAt = new Location(0, 0, -10),
+                DiffuseTexture = Client.Textures.White
+            });
+            // Light
+            subeng.SubEngine.SpawnEntity(new EntityPointLight3DProperty()
+            {
+                LightPosition = new Location(0, 0, 1),
+                LightStrength = 15f
+            });
+            subeng.SubEngine.MainCamera.Position = new Location(0, 0, 0);
+            subeng.SubEngine.MainCamera.Direction = new Location(0.1, -0.1, -1).Normalize();
         }
 
         /// <summary>
@@ -86,7 +102,7 @@ namespace Test3DGame.MainGame
         {
             if (e.Key == Key.Escape)
             {
-                Engine.Window.Close();
+                Client.Window.Close();
             }
         }
     }

@@ -70,7 +70,7 @@ namespace Test3DGame.GameEntities
             {
                 Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
                 {
-                    EntityModel = Engine3D.Models.Cube,
+                    EntityModel = Engine.Models.Cube,
                     Scale = new Location(1, 1, 1),
                     DiffuseTexture = Engine.Textures.White,
                     RenderAt = EyePos
