@@ -52,14 +52,14 @@ namespace Test3DGame.MainGame
                 Scale = new Location(100, 100, 10),
                 RenderAt = new Location(0, 0, -5),
                 DiffuseTexture = Client.Textures.White
-            }, new EntityPhysicsProperty()
+            }, new ClientEntityPhysicsProperty()
             {
                 Position = new Location(0, 0, -5),
                 Shape = new EntityBoxShape() { Size = new Location(100, 100, 10) },
                 Mass = 0
             });
             // Player
-            Client.Engine3D.SpawnEntity(new EntityPhysicsProperty()
+            Client.Engine3D.SpawnEntity(new ClientEntityPhysicsProperty()
             {
                 Position = new Location(0, 0, 2),
                 Shape = new EntityCharacterShape()

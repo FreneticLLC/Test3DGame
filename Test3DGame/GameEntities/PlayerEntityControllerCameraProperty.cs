@@ -28,7 +28,7 @@ namespace Test3DGame.GameEntities
             Engine.Window.KeyDown += Window_KeyDown;
             Engine.Window.KeyUp += Window_KeyUp;
             Entity.OnTick += Tick;
-            Entity.OnSpawnEvent += OnSpawnSecond;
+            Entity.OnSpawnEvent.AddEvent(OnSpawnSecond, this, 0);
             Engine.Window.MouseDown += Window_MouseDown;
         }
 
@@ -41,9 +41,9 @@ namespace Test3DGame.GameEntities
         /// Fired on the secondary spawn event.
         /// </summary>
         /// <param name="e">Event data.</param>
-        public void OnSpawnSecond(EntitySpawnEventArgs e)
+        public void OnSpawnSecond(FreneticEventArgs<EntitySpawnEventArgs> e)
         {
-            PhysChar = Entity.GetProperty<EntityPhysicsProperty>().OriginalObject as CharacterController;
+            PhysChar = Entity.GetProperty<ClientEntityPhysicsProperty>().OriginalObject as CharacterController;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Test3DGame.GameEntities
             Engine.Window.KeyDown -= Window_KeyDown;
             Engine.Window.KeyUp -= Window_KeyUp;
             Entity.OnTick -= Tick;
-            Entity.OnSpawnEvent -= OnSpawnSecond;
+            Entity.OnSpawnEvent.RemoveBySource(this);
             Engine.Window.MouseDown -= Window_MouseDown;
         }
         
@@ -74,7 +74,7 @@ namespace Test3DGame.GameEntities
                     Scale = new Location(1, 1, 1),
                     DiffuseTexture = Engine.Textures.White,
                     RenderAt = EyePos
-                }, new EntityPhysicsProperty()
+                }, new ClientEntityPhysicsProperty()
                 {
                     Position = EyePos + new Location(PhysChar.ViewDirection) * 2,
                     LinearVelocity = new Location(PhysChar.ViewDirection * 10),
@@ -84,19 +84,19 @@ namespace Test3DGame.GameEntities
             }
             else if (e.Button == MouseButton.Right)
             {
-                BasicEntity be = Engine.SpawnEntity(new EntityPointLight3DProperty()
+                ClientEntity ent = Engine.SpawnEntity(new EntityPointLight3DProperty()
                 {
                     LightColor = new Location(1, 0.2, 0.1),
                     LightPosition = EyePos,
                     LightStrength = 5,
-                }, new EntityPhysicsProperty()
+                }, new ClientEntityPhysicsProperty()
                 {
                     Position = EyePos + new Location(PhysChar.ViewDirection) * 2,
                     LinearVelocity = new Location(PhysChar.ViewDirection * 7),
                     Shape = new EntitySphereShape() { Size = 0.5 },
                     Mass = 0.5
                 });
-                be.GetProperty<EntityPointLight3DProperty>().InternalLight.SetCastShadows(false);
+                ent.GetProperty<EntityPointLight3DProperty>().InternalLight.SetCastShadows(false);
                 Engine.Sounds.Play(Engine.Sounds.GetSound("sfx/test"), false, Entity.LastKnownPosition);
             }
         }
