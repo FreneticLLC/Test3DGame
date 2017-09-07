@@ -30,7 +30,7 @@ namespace Test3DGame.GameEntities
         /// <summary>
         /// Fired when entity is despawned.
         /// </summary>
-        public override void OnDeSpawn()
+        public override void OnDespawn()
         {
             Engine.Window.MouseMove -= Window_MouseMove;
             Engine.Window.KeyDown -= Window_KeyDown;

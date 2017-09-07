@@ -11,6 +11,7 @@ using FreneticGameCore.EntitySystem;
 using System.Drawing;
 using BEPUphysics.Character;
 using FreneticGameCore.EntitySystem.PhysicsHelpers;
+using Test3DGame.GameEntities.GameInterfaces;
 
 namespace Test3DGame.GameEntities
 {
@@ -49,7 +50,7 @@ namespace Test3DGame.GameEntities
         /// <summary>
         /// Fired when entity is despawned.
         /// </summary>
-        public override void OnDeSpawn()
+        public override void OnDespawn()
         {
             Engine.Window.MouseMove -= Window_MouseMove;
             Engine.Window.KeyDown -= Window_KeyDown;
@@ -80,7 +81,7 @@ namespace Test3DGame.GameEntities
                     LinearVelocity = new Location(PhysChar.ViewDirection * 10),
                     Shape = new EntityBoxShape() { Size = new Location(1, 1, 1) },
                     Mass = 1
-                });
+                }, new BoxProperty());
             }
             else if (e.Button == MouseButton.Right)
             {
@@ -144,6 +145,11 @@ namespace Test3DGame.GameEntities
             {
                 PhysChar.Jump();
             }
+            if (KeyUse)
+            {
+                ClientEntity ce = Engine3D.PhysicsWorld.RayTraceSingle(EyePos, Engine3D.MainCamera.Direction, 10, (e) => e.Tag != this);
+                ce?.SignalAllInterfacedProperties<IUseable>((e) => e.Use());
+            }
             Engine3D.MainCamera.Position = EyePos;
         }
 
@@ -171,6 +177,11 @@ namespace Test3DGame.GameEntities
         /// Is the jump key down.
         /// </summary>
         public bool KeyJump;
+
+        /// <summary>
+        /// Is the use key down.
+        /// </summary>
+        public bool KeyUse;
         
         /// <summary>
         /// Tracks key releases.
@@ -195,6 +206,9 @@ namespace Test3DGame.GameEntities
                     break;
                 case Key.Space:
                     KeyJump = false;
+                    break;
+                case Key.E:
+                    KeyUse = false;
                     break;
             }
         }
@@ -222,6 +236,9 @@ namespace Test3DGame.GameEntities
                     break;
                 case Key.Space:
                     KeyJump = true;
+                    break;
+                case Key.E:
+                    KeyUse = true;
                     break;
             }
         }

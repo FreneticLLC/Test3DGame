@@ -72,7 +72,7 @@ namespace Test3DGame.MainGame
                 LightPosition = new Location(0, 0, 10),
                 LightStrength = 25f
             });
-            UI3DSubEngine subeng = new UI3DSubEngine(new UIPositionHelper(Client.MainUI).Anchor(UIAnchor.CENTER).ConstantXY(0, 0).ConstantWidthHeight(350, 350));
+            UI3DSubEngine subeng = new UI3DSubEngine(new UIPositionHelper(Client.MainUI).Anchor(UIAnchor.TOP_LEFT).ConstantXY(0, 0).ConstantWidthHeight(350, 350));
             Client.MainUI.DefaultScreen.AddChild(subeng);
             // Ground
             subeng.SubEngine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
