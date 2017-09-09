@@ -100,6 +100,28 @@ namespace Test3DGame.GameEntities
                 ent.GetProperty<EntityPointLight3DProperty>().InternalLight.SetCastShadows(false);
                 Engine.Sounds.Play(Engine.Sounds.GetSound("sfx/test"), false, Entity.LastKnownPosition);
             }
+            else if (e.Button == MouseButton.Middle)
+            {
+                Engine.SpawnEntity(new EntitySimple3DRenderableModelProperty()
+                {
+                    EntityModel = Engine.Models.GetModel("tg/potato"),
+                    Scale = new Location(1, 1, 1),
+                    DiffuseTexture = Engine.Textures.White,
+                    Color = new Vector4(0.8f, 0.1f, 0.1f, 1f),
+                    RenderAt = EyePos
+                }, new ClientEntityPhysicsProperty()
+                {
+                    Position = EyePos + new Location(PhysChar.ViewDirection) * 2,
+                    LinearVelocity = new Location(PhysChar.ViewDirection * 10),
+                    Shape = new EntityConvexHullShape()
+                    {
+                        // TODO: Don't re-calculate hull every time!
+                        Internal = Engine.Models.Handler.MeshToBepuConvex(Engine.Models.GetModel("tg/potato_collision").Original, out int verts, out BEPUutilities.Vector3 center),
+                        Center = center
+                    },
+                    Mass = 1
+                });
+            }
         }
 
         /// <summary>
