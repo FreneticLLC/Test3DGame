@@ -73,8 +73,7 @@ namespace Test3DGame.GameEntities
                 {
                     EntityModel = Engine.Models.Cube,
                     Scale = new Location(1, 1, 1),
-                    DiffuseTexture = Engine.Textures.White,
-                    RenderAt = EyePos
+                    DiffuseTexture = Engine.Textures.White
                 }, new ClientEntityPhysicsProperty()
                 {
                     Position = EyePos + new Location(PhysChar.ViewDirection) * 2,
@@ -88,7 +87,6 @@ namespace Test3DGame.GameEntities
                 ClientEntity ent = Engine.SpawnEntity(new EntityPointLight3DProperty()
                 {
                     LightColor = new Location(1, 0.2, 0.1),
-                    LightPosition = EyePos,
                     LightStrength = 5,
                 }, new ClientEntityPhysicsProperty()
                 {
@@ -107,8 +105,7 @@ namespace Test3DGame.GameEntities
                     EntityModel = Engine.Models.GetModel("tg/potato"),
                     Scale = new Location(1, 1, 1),
                     DiffuseTexture = Engine.Textures.White,
-                    Color = new Vector4(0.8f, 0.1f, 0.1f, 1f),
-                    RenderAt = EyePos
+                    Color = new Vector4(0.8f, 0.1f, 0.1f, 1f)
                 }, new ClientEntityPhysicsProperty()
                 {
                     Position = EyePos + new Location(PhysChar.ViewDirection) * 2,
@@ -131,7 +128,7 @@ namespace Test3DGame.GameEntities
         {
             get
             {
-                return new Location(PhysChar.Body.Position - PhysChar.Down * PhysChar.StanceManager.StandingHeight * 0.95);
+                return new Location(PhysChar.Body.Position - PhysChar.Down * PhysChar.StanceManager.StandingHeight * 0.475);
             }
         }
 

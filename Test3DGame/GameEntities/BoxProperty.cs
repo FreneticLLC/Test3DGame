@@ -19,6 +19,43 @@ namespace Test3DGame.GameEntities
         /// </summary>
         public ClientEntityPhysicsProperty PhysProp;
 
+        public override void OnSpawn()
+        {
+            Entity.OnTick += Tick;
+        }
+
+        public override void OnDespawn()
+        {
+            Entity.OnTick -= Tick;
+        }
+
+        public double scale = 1;
+
+        public bool mode = true;
+
+        public void Tick()
+        {
+            if (mode)
+            {
+                scale -= Entity.Engine.Delta;
+                if (scale < 0.1)
+                {
+                    mode = false;
+                    scale = 0.1;
+                }
+            }
+            else
+            {
+                scale += Entity.Engine.Delta;
+                if (scale > 1)
+                {
+                    mode = true;
+                    scale = 1;
+                }
+            }
+            Entity.GetProperty<EntitySimple3DRenderableModelProperty>().Scale = new Location(scale);
+        }
+
         /// <summary>
         /// Flings the box into the air.
         /// </summary>
