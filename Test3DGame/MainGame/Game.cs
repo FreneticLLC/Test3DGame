@@ -14,6 +14,7 @@ using Test3DGame.GameEntities;
 using FreneticGameCore.EntitySystem;
 using FreneticGameCore.EntitySystem.PhysicsHelpers;
 using FreneticGameGraphics.UISystem;
+using FreneticGameCore.Files;
 
 namespace Test3DGame.MainGame
 {
@@ -102,6 +103,28 @@ namespace Test3DGame.MainGame
             if (e.Key == Key.Escape)
             {
                 Client.Window.Close();
+            }
+            if (e.Key == Key.F1)
+            {
+                SysConsole.Output(OutputType.DEBUG, string.Join("\n", Client.CurrentEngine.EntityList.ConvertAll((ce) => ce.DebugPropList())));
+            }
+            if (e.Key == Key.F2)
+            {
+                DataStream ds = new DataStream();
+                DataWriter dw = new DataWriter(ds);
+                List<string> strs = new List<string>();
+                Dictionary<string, int> strmap = new Dictionary<string, int>();
+                foreach (ClientEntity ce in Client.CurrentEngine.EntityList)
+                {
+                    ce.SaveNC(dw, strs, strmap);
+                }
+                byte[] bStrs = FileHandler.DefaultEncoding.GetBytes(string.Join("\n", strs.ConvertStream((s) => s.Replace("&", "&a").Replace("\n", "&n"))) + "\n\n");
+                byte[] b2 = ds.ToArray();
+                byte[] bRes = new byte[bStrs.Length + b2.Length];
+                bStrs.CopyTo(bRes, 0);
+                b2.CopyTo(bRes, bStrs.Length);
+                Client.Files.WriteBytes("test.dat", FileHandler.Compress(bRes));
+                SysConsole.Output(OutputType.DEBUG, "Saved!");
             }
         }
     }

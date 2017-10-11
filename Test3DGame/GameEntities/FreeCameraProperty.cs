@@ -83,36 +83,43 @@ namespace Test3DGame.GameEntities
         /// <summary>
         /// Is the left key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyLeft;
 
         /// <summary>
         /// Is the right key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyRight;
 
         /// <summary>
         /// Is the forward key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyForward;
 
         /// <summary>
         /// Is the back key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyBack;
 
         /// <summary>
         /// Is the up key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyUp;
 
         /// <summary>
         /// Is the down key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyDown;
 
         /// <summary>
         /// Is the 'fast' key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyFast;
 
         /// <summary>
@@ -184,16 +191,22 @@ namespace Test3DGame.GameEntities
         /// <summary>
         /// Current view yaw.
         /// </summary>
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public double Yaw;
 
         /// <summary>
         /// Current view pitch.
         /// </summary>
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public double Pitch;
 
         /// <summary>
         /// Mouse sensitivity.
         /// </summary>
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public double Sensitivity = 0.1;
         
         /// <summary>

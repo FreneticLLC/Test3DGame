@@ -29,8 +29,12 @@ namespace Test3DGame.GameEntities
             Entity.OnTick -= Tick;
         }
 
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public double scale = 1;
 
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public bool mode = true;
 
         public void Tick()

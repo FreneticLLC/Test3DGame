@@ -18,7 +18,7 @@ namespace Test3DGame.GameEntities
     /// <summary>
     /// Represents a player entity controller + camera property.
     /// </summary>
-    class PlayerEntityControllerCameraProperty : ClientEntityProperty
+    public class PlayerEntityControllerCameraProperty : ClientEntityProperty
     {
         /// <summary>
         /// Fired when entity is spawned.
@@ -86,7 +86,7 @@ namespace Test3DGame.GameEntities
             {
                 ClientEntity ent = Engine.SpawnEntity(new EntityPointLight3DProperty()
                 {
-                    LightColor = new Location(1, 0.2, 0.1),
+                    LightColor = new Color3F(1f, 0.2f, 0.1f),
                     LightStrength = 5,
                 }, new ClientEntityPhysicsProperty()
                 {
@@ -105,7 +105,7 @@ namespace Test3DGame.GameEntities
                     EntityModel = Engine.Models.GetModel("tg/potato"),
                     Scale = new Location(1, 1, 1),
                     DiffuseTexture = Engine.Textures.White,
-                    Color = new Vector4(0.8f, 0.1f, 0.1f, 1f)
+                    Color = new Color4F(0.8f, 0.1f, 0.1f, 1f)
                 }, new ClientEntityPhysicsProperty()
                 {
                     Position = EyePos + new Location(PhysChar.ViewDirection) * 2,
@@ -124,6 +124,7 @@ namespace Test3DGame.GameEntities
         /// <summary>
         /// Gets the player's eye position.
         /// </summary>
+        [PropertyDebuggable]
         public Location EyePos
         {
             get
@@ -175,31 +176,37 @@ namespace Test3DGame.GameEntities
         /// <summary>
         /// Is the left key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyLeft;
 
         /// <summary>
         /// Is the right key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyRight;
 
         /// <summary>
         /// Is the forward key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyForward;
 
         /// <summary>
         /// Is the back key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyBack;
 
         /// <summary>
         /// Is the jump key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyJump;
 
         /// <summary>
         /// Is the use key down.
         /// </summary>
+        [PropertyDebuggable]
         public bool KeyUse;
         
         /// <summary>
@@ -265,16 +272,22 @@ namespace Test3DGame.GameEntities
         /// <summary>
         /// Current view yaw.
         /// </summary>
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public double Yaw;
 
         /// <summary>
         /// Current view pitch.
         /// </summary>
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public double Pitch;
 
         /// <summary>
         /// Mouse sensitivity.
         /// </summary>
+        [PropertyDebuggable]
+        [PropertyAutoSavable]
         public double Sensitivity = 0.1;
 
         /// <summary>
